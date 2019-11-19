@@ -1,3 +1,4 @@
 export const colors = {
-    mainGreenColor: '#6b9c68',
+    mainColor: '#6b9c68',
+    secondaryColor: 'black'
 };
