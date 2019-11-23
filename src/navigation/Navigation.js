@@ -5,37 +5,47 @@ import { Image, StyleSheet } from "react-native";
 import React from "react";
 
 import Homepage from "../components/Homepage";
+import SettingsPage from "../components/SettingsPage";
 
 import { colors } from "../definitions/colors";
 import { assets } from "../definitions/assets";
 
-const Navigation = createStackNavigator(
+const HomeNavigation = createStackNavigator(
     {
-        Homepage: Homepage,
+        Home: Homepage,
     },
     {
-        initialRouteName: "Homepage"
+        initialRouteName: "Home"
+    }
+);
+
+const QuickAccessNavigation = createStackNavigator(
+    {
+        Settings: SettingsPage,
+    },
+    {
+        initialRouteName: "Settings"
     }
 );
 
 const TabNavigation = createBottomTabNavigator(
     {
-        Search: {
-            screen: Navigation,
-            navigationOptions: {
-                title: "Search",
-                tabBarIcon: () => {
-                    return (
-                        <Image
-                            style={styles.tabIcon}
-                            source={assets.searchIcon}
-                        />
-                    );
-                }
-            }
-        },
+        // Search: {
+        //     screen: QuickAccessNavigation,
+        //     navigationOptions: {
+        //         title: "Search",
+        //         tabBarIcon: () => {
+        //             return (
+        //                 <Image
+        //                     style={styles.tabIcon}
+        //                     source={assets.searchIcon}
+        //                 />
+        //             );
+        //         }
+        //     }
+        // },
         Home: {
-            screen: Navigation,
+            screen: HomeNavigation,
             navigationOptions: {
                 title: "Home",
                 tabBarIcon: () => {
@@ -48,9 +58,8 @@ const TabNavigation = createBottomTabNavigator(
                 }
             }
         },
-
         Settings: {
-            screen: Navigation,
+            screen: QuickAccessNavigation,
             navigationOptions: {
                 title: "Settings",
                 tabBarIcon: () => {

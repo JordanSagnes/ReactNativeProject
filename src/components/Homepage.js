@@ -1,9 +1,8 @@
 import React from "react";
 import { Text, StyleSheet, View } from "react-native";
-import { colors } from "../definitions/colors"
 import NavigationButton from "./NavigationButton";
 
-const Homepage = () => {
+const Homepage = ({navigation}) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.buttons}>
