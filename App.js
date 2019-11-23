@@ -1,12 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import RecipeList from "./src/components/RecipeList"
-import { colors } from "./src/definitions/colors"
+import RecipeDetails from "./src/components/RecipeDetails";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <RecipeList/>
+      <RecipeDetails/>
     </View>
   );
 }
