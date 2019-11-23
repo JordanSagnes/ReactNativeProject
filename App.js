@@ -1,12 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import FoodList from "./src/components/FoodList"
+import RecipeList from "./src/components/RecipeList"
 import { colors } from "./src/definitions/colors"
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <FoodList/>
+      <RecipeList/>
     </View>
   );
 }
