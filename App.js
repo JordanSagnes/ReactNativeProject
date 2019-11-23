@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import NavigationButton from './src/components/NavigationButton'
 import Navigation from "./src/navigation/Navigation";
 
 export default function App() {
