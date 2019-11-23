@@ -1,12 +1,12 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import FoodList from "./src/components/FoodList"
-import { colors } from "./src/definitions/colors"
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import NavigationButton from './src/components/NavigationButton'
+import Navigation from "./src/navigation/Navigation";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <FoodList/>
+      <Navigation/>
     </View>
   );
 }
@@ -14,6 +14,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.backgroundColor
+    backgroundColor: '#fff',
   },
 });
