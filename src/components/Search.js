@@ -4,7 +4,7 @@ import RadioForm from 'react-native-simple-radio-button'
 
 const Search = () => {
     return (
-        <View style={styles.mainView}>
+        <View>
             <TextInput placeholder="Ingredient's name" name style={styles.textInput}/>
             <View style={styles.radioButtonContainer}>
                 <Text>
@@ -24,9 +24,6 @@ const Search = () => {
 export default Search
 
 const styles = StyleSheet.create({
-    mainView: {
-        flex: 1
-    },
     radioButtonContainer: {
         flexDirection: 'row',
         alignItems: 'center',

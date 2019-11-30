@@ -6,28 +6,32 @@ import {View, Text, FlatList, StyleSheet, Image} from "react-native"
 
 const FoodList = () => {
     return (
-        <FlatList
-            data={fakeFood}
-            keyExtractor={(item) => item.name}
-            renderItem={({item}) =>
-                <View style={styles.itemView}>
-                    <Image style={styles.foodIcon} source={assets.foodIcon}/>
-                    <Text style={styles.foodText}>
-                        {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
-                    </Text>
-                    <View style={styles.actionContainer}>
-                        <Image style={styles.actionIcon} source={assets.addToListIcon}/>
-                        <Image style={styles.actionIcon} source={assets.deleteIcon}/>
+        <View style={styles.mainView}>
+            <FlatList
+                data={fakeFood}
+                keyExtractor={(item) => item.name}
+                renderItem={({item}) =>
+                    <View style={styles.itemView}>
+                        <Image style={styles.foodIcon} source={assets.foodIcon}/>
+                        <Text style={styles.foodText}>
+                            {item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                        </Text>
+                        <View style={styles.actionContainer}>
+                            <Image style={styles.actionIcon} source={assets.addToListIcon}/>
+                            <Image style={styles.actionIcon} source={assets.deleteIcon}/>
+                        </View>
                     </View>
-                </View>
-            }
-        />
+                }
+            />
+        </View>
     )
 }
 
 export default FoodList
 
 const styles = StyleSheet.create({
+    mainView: {
+    },
     itemView: {
         flex: 1,
         flexDirection: 'row',
