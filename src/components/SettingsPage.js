@@ -1,30 +1,29 @@
 import React, { useState } from "react";
 import {Text, StyleSheet, View, Switch} from "react-native";
 import { colors } from "../definitions/colors";
+import { connect } from "react-redux";
+import { modifySettingsAddIngredientToShoppingList, modifySettingsRemoveIngredientToShoppingList } from "../store/actions/settings"
 
-const SettingsPage = ({navigation}) => {
-    const [addIngredientToShoppingList, setAddIngredientToShoppingList] = useState(false);
-    const [removeIngredientToShoppingList, setRemoveIngredientToShoppingList] = useState(false);
-
+const SettingsPage = ({navigation, settings, dispatch}) => {
     _switchAddIngredient = () => {
-        setAddIngredientToShoppingList(!addIngredientToShoppingList);
+        dispatch(modifySettingsAddIngredientToShoppingList(!settings.addIngredientToShoppingList));
     };
 
     _switchRemoveShoppingList = () => {
-        setRemoveIngredientToShoppingList(!removeIngredientToShoppingList);
+        dispatch(modifySettingsRemoveIngredientToShoppingList(!settings.removeIngredientToShoppingList));
     };
 
     return (
         <View style={styles.mainContainer}>
             <Text style={styles.title}>Configutation</Text>
             <View style={styles.formline}>
-                <Switch onChange={_switchAddIngredient} value={addIngredientToShoppingList} style={styles.switch}></Switch>
+                <Switch onChange={_switchAddIngredient} value={settings.addIngredientToShoppingList} style={styles.switch}></Switch>
                 <Text style={styles.text}>Add ingredients removed from the fridge to the shopping list</Text>
             </View>
 
             <View style={styles.formline}>
-                <Switch onChange={_switchRemoveShoppingList} value={removeIngredientToShoppingList} style={styles.switch}></Switch>
-                <Text style={styles.text}>When adding an ingredient to the fridge from theeee shopping list, remove it from
+                <Switch onChange={_switchRemoveShoppingList} value={settings.removeIngredientToShoppingList} style={styles.switch}></Switch>
+                <Text style={styles.text}>When adding an ingredient to the fridge from the shopping list, remove it from
                     the shopping list</Text>
             </View>
 
@@ -42,8 +41,13 @@ SettingsPage.navigationOptions = {
     title: "Settings"
 };
 
+const mapStateToProps = state => {
+    return {
+        settings: state.settingsState
+    };
+};
 
-export default SettingsPage;
+export default connect(mapStateToProps)(SettingsPage);
 
 const styles = StyleSheet.create({
     mainContainer: {

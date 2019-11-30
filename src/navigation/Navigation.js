@@ -76,7 +76,7 @@ const TabNavigation = createBottomTabNavigator(
     {
         tabBarOptions: {
             activeBackgroundColor: colors.mainColor,
-            activeTintColor: "white"
+            activeTintColor: "white",
         },
         initialRouteName: "Home"
     }

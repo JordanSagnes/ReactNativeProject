@@ -15,7 +15,7 @@ const Homepage = ({navigation}) => {
 };
 
 Homepage.navigationOptions = {
-    title: "Home"
+    header: null
 };
 
 
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     mainContainer : {
         flex: 1,
         justifyContent: "center",
-        marginHorizontal: 50,
+        paddingHorizontal: 50,
+        backgroundColor: "#436C93"
     },
 
     button : {
