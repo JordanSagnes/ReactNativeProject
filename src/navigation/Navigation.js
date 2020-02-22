@@ -9,17 +9,22 @@ import SettingsPage from "../components/SettingsPage";
 
 import { colors } from "../definitions/colors";
 import { assets } from "../definitions/assets";
+import RecipeDetails from "../components/RecipeDetails";
+import Fridge from "../components/Fridge";
+import SearchIngredients from "../components/SearchIngredients";
 
 const HomeNavigation = createStackNavigator(
     {
         Home: Homepage,
+        RecipeDetails: RecipeDetails,
+        Fridge: Fridge
     },
     {
         initialRouteName: "Home"
     }
 );
 
-const QuickAccessNavigation = createStackNavigator(
+const SettingsNavigation = createStackNavigator(
     {
         Settings: SettingsPage,
     },
@@ -28,22 +33,17 @@ const QuickAccessNavigation = createStackNavigator(
     }
 );
 
+const SearchNavigation = createStackNavigator(
+  {
+      SearchIngredients: SearchIngredients,
+  },
+  {
+      initialRouteName: "SearchIngredients"
+  }
+);
+
 const TabNavigation = createBottomTabNavigator(
     {
-        // Search: {
-        //     screen: QuickAccessNavigation,
-        //     navigationOptions: {
-        //         title: "Search",
-        //         tabBarIcon: () => {
-        //             return (
-        //                 <Image
-        //                     style={styles.tabIcon}
-        //                     source={assets.searchIcon}
-        //                 />
-        //             );
-        //         }
-        //     }
-        // },
         Home: {
             screen: HomeNavigation,
             navigationOptions: {
@@ -58,8 +58,22 @@ const TabNavigation = createBottomTabNavigator(
                 }
             }
         },
+        Search: {
+            screen: SearchNavigation,
+            navigationOptions: {
+                title: "Search",
+                tabBarIcon: () => {
+                    return (
+                      <Image
+                        style={styles.tabIcon}
+                        source={assets.searchIcon}
+                      />
+                    );
+                }
+            }
+        },
         Settings: {
-            screen: QuickAccessNavigation,
+            screen: SettingsNavigation,
             navigationOptions: {
                 title: "Settings",
                 tabBarIcon: () => {
@@ -75,8 +89,8 @@ const TabNavigation = createBottomTabNavigator(
     },
     {
         tabBarOptions: {
-            activeBackgroundColor: colors.mainColor,
-            activeTintColor: "white",
+            activeBackgroundColor: 'rgba(0,0,0,0.2)',
+            activeTintColor: "black",
         },
         initialRouteName: "Home"
     }
