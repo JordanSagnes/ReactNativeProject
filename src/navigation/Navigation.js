@@ -4,14 +4,14 @@ import { createBottomTabNavigator } from "react-navigation-tabs";
 import { Image, StyleSheet } from "react-native";
 import React from "react";
 
-import Homepage from "../components/Homepage";
-import SettingsPage from "../components/SettingsPage";
+import Homepage from "../pages/Homepage";
+import SettingsPage from "../pages/SettingsPage";
 
 import { colors } from "../definitions/colors";
 import { assets } from "../definitions/assets";
 import RecipeDetails from "../components/RecipeDetails";
 import Fridge from "../components/Fridge";
-import SearchIngredients from "../components/SearchIngredients";
+import SearchIngredients from "../pages/SearchIngredients";
 
 const HomeNavigation = createStackNavigator(
     {

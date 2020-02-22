@@ -1,25 +1,30 @@
 import React from 'react'
-import Search from "./Search"
-import FoodList from "./FoodList"
-import AddIngredientButton from "./AddIngredientButton"
-import {StyleSheet, View, ScrollView} from 'react-native'
+import {StyleSheet, View, ScrollView, Text} from 'react-native'
+import {connect} from "react-redux";
+import Ingredient from "./Ingredient";
 
-const Fridge = () => {
+const Fridge = ({ingredients}) => {
+  console.log(ingredients);
     return (
         <View style={styles.mainView}>
-            <Search/>
-            <ScrollView>
-                <FoodList/>
-            </ScrollView>
-            <AddIngredientButton/>
+          {
+            ingredients.map(ingredient => {
+              return <Ingredient key={ingredient.id} ingredient={ingredient}/>
+            })
+          }
         </View>
     )
-}
+};
 
-export default Fridge
+const mapStateToProps = state => {
+  return {
+    ingredients: state.fridgeState.ingredients
+  };
+};
 
+export default connect(mapStateToProps)(Fridge);
 const styles = StyleSheet.create({
     mainView: {
         flex: 1
     }
-})
+});
