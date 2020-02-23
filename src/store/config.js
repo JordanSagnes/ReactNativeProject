@@ -4,6 +4,7 @@ import { AsyncStorage } from 'react-native'
 
 import settingsReducer from "./reducers/settingsReducer";
 import fridgeReducer from "./reducers/fridgeReducer";
+import listReducer from "./reducers/listReducer";
 
 const persistConfig = {
   key: 'root',
@@ -15,7 +16,8 @@ const persistConfig = {
 // créé un reducer en utilisant state.key
 const reducer = combineReducers({
   "settingsState" : settingsReducer,
-  "fridgeState" : fridgeReducer
+  "fridgeState" : fridgeReducer,
+  "listState" : listReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

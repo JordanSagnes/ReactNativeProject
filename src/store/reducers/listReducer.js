@@ -1,20 +1,20 @@
-import { types } from "../actions/fridge.js";
+import { types } from "../actions/list.js";
 
-const fridgeState = {
+const listState = {
   ingredients : []
 };
 
-function fridge(state = fridgeState, action) {
+function list(state = listState, action) {
   let nextState;
   switch (action.type) {
-    case types.ADD_INGREDIENT_TO_FRIDGE:
+    case types.ADD_INGREDIENT_TO_LIST:
       nextState = {
         ...state,
         ingredients: [...state.ingredients, action.value]
       };
       return nextState || state;
 
-    case types.REMOVE_INGREDIENT_TO_FRIDGE:
+    case types.REMOVE_INGREDIENT_TO_LIST:
       nextState = {
         ...state,
         ingredients: state.ingredients.filter(ingredient => ingredient.id !== action.value)
@@ -26,4 +26,4 @@ function fridge(state = fridgeState, action) {
   }
 }
 
-export default fridge;
+export default list;

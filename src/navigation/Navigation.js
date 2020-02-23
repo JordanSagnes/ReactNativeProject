@@ -10,14 +10,17 @@ import SettingsPage from "../pages/SettingsPage";
 import { colors } from "../definitions/colors";
 import { assets } from "../definitions/assets";
 import RecipeDetails from "../components/RecipeDetails";
-import Fridge from "../components/Fridge";
+import Fridge from "../pages/Fridge";
+import List from "../pages/List";
 import SearchIngredients from "../pages/SearchIngredients";
 
 const HomeNavigation = createStackNavigator(
     {
         Home: Homepage,
         RecipeDetails: RecipeDetails,
-        Fridge: Fridge
+        Fridge: Fridge,
+        List: List,
+        SearchIngredients: SearchIngredients,
     },
     {
         initialRouteName: "Home"

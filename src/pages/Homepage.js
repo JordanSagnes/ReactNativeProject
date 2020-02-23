@@ -19,7 +19,7 @@ const Homepage = ({navigation}) => {
         </TouchableOpacity>
 
         {/*MY LIST*/}
-        <TouchableOpacity style={[styles.button, styles.buttonMarginBottom]}>
+        <TouchableOpacity style={[styles.button, styles.buttonMarginBottom]} onPress={() => navigation.navigate('List')}>
           <View style={styles.buttonView}>
             <Image source={assets.list} style={styles.buttonIcon}/>
             <Text style={styles.buttonText}>My list</Text>

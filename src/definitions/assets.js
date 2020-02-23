@@ -2,6 +2,8 @@ export const assets = {
     foodIcon: require("../assets/icons/testFoodIcon.jpg"),
     food: require("../assets/icons/carrot.png"),
     fridge: require("../assets/icons/fridge.png"),
+    hamburger: require("../assets/icons/hamburger.png"),
+    trash: require("../assets/icons/trash.png"),
     list: require("../assets/icons/list.png"),
     chevronRight: require("../assets/icons/chevron-right.png"),
     addToListIcon: require("../assets/icons/addToListIcon.png"),
