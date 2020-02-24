@@ -14,15 +14,26 @@ const Ingredient = ({ingredient, actions}) => {
         <View style={styles.rightPart}>
           {
             Object.keys(actions).map(action => {
-              return (
-                <TouchableOpacity
-                  key={action + ingredient.id.toString()}
-                  style={{...styles.actionButton, backgroundColor: actions[action].backgroundColor}}
-                  onPress={() => (actions[action].action)(ingredient)}
-                >
-                  <Image source={actions[action].image} style={styles.actionImage}/>
-                </TouchableOpacity>
-              )
+              if(actions[action].disabled !== undefined && (actions[action].disabled)(ingredient) ) {
+                return (
+                  <TouchableOpacity
+                    key={action + ingredient.id.toString()}
+                    style={[styles.disabledButton, styles.button]}
+                  >
+                    <Image source={actions[action].image} style={[styles.imageIcon, styles.disabledImage]}/>
+                  </TouchableOpacity>
+                )
+              } else {
+                return (
+                  <TouchableOpacity
+                    key={action + ingredient.id.toString()}
+                    style={[styles.actionButton, styles.button, {backgroundColor: actions[action].backgroundColor}]}
+                    onPress={() => (actions[action].action)(ingredient)}
+                  >
+                    <Image source={actions[action].image} style={[styles.imageIcon, styles.actionImage]}/>
+                  </TouchableOpacity>
+                )
+              }
             })
           }
         </View>
@@ -69,18 +80,32 @@ const styles = StyleSheet.create({
     marginRight: 40
   },
 
-  actionButton: {
-    backgroundColor: 'red',
+  button: {
     paddingVertical: 20,
     paddingHorizontal: 30,
     height: 120,
     justifyContent: 'center'
   },
 
-  actionImage: {
+  actionButton: {
+    backgroundColor: 'red',
+  },
+
+  imageIcon: {
     width: 25,
     height: 25,
     resizeMode: 'contain',
+  },
+
+  actionImage: {
     tintColor: 'white'
+  },
+
+  disabledButton: {
+    backgroundColor: 'white',
+  },
+
+  disabledImage: {
+    tintColor: 'green'
   }
 });

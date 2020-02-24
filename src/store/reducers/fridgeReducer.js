@@ -10,7 +10,7 @@ function fridge(state = fridgeState, action) {
     case types.ADD_INGREDIENT_TO_FRIDGE:
       nextState = {
         ...state,
-        ingredients: [...state.ingredients, action.value]
+        ingredients: [...state.ingredients.filter(ingredient => ingredient.id !== action.value.id), action.value]
       };
       return nextState || state;
 

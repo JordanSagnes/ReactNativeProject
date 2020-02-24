@@ -2,7 +2,6 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import {View, StyleSheet} from 'react-native';
-import Constants from "expo-constants";
 
 import Navigation from './src/navigation/Navigation';
 import {store, persistor} from './src/store/config';
@@ -22,6 +21,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight
   }
 });

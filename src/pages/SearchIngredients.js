@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View, Text, Keyboard} from 'react-native';
 import { Container, Header, Content, Button, Item, Input, Icon } from 'native-base';
 import {FlatList} from "react-native"
 import {getResultsSearchIngredients} from "../api/spoonacular";
@@ -10,9 +10,13 @@ import {types as listType} from "../store/actions/list";
 import {connect} from "react-redux";
 import NoIngredient from "../components/NoIngredient";
 
-const SearchIngredients = ({dispatch}) => {
+const SearchIngredients = ({dispatch, list, fridge, navigation}) => {
   const [ingredients, setIngredients] = useState( [] );
-  let searchTerm = '';
+  const [searchTerm, setSearchTerm] = useState(navigation.getParam('searchTerm'));
+
+  useEffect(() => {
+    searchIngredient();
+  }, []);
 
   let _addToFridge = (ingredient) => {
     dispatch({type: fridgeType.ADD_INGREDIENT_TO_FRIDGE, value: ingredient});
@@ -24,28 +28,36 @@ const SearchIngredients = ({dispatch}) => {
 
   const searchIngredient = async () => {
     try {
-      setIngredients(await getResultsSearchIngredients(searchTerm));
+      if(searchTerm.length > 0)
+        setIngredients(await getResultsSearchIngredients(searchTerm));
     } catch(error) {
       console.log(error); //TODO view error
     }
+    Keyboard.dismiss();
+  };
+
+  let _disableAddToList = (ingredient) => {
+    return list.filter((listIngredient) => listIngredient.id === ingredient.id).length > 0;
+  };
+
+  let _disableAddToFridge = (ingredient) => {
+    return fridge.filter((fridgeIngredient) => fridgeIngredient.id === ingredient.id).length > 0;
   };
 
   const actions = {
-    'addToFridge': {'backgroundColor': '#95C25E', 'action': _addToFridge, 'image': assets.fridge},
-    'addToList': {'backgroundColor': '#16A0C9', 'action': _addToList, 'image': assets.list},
+    'addToFridge': {'backgroundColor': '#95C25E', 'action': _addToFridge, 'image': assets.fridge, 'disabled': _disableAddToFridge},
+    'addToList': {'backgroundColor': '#16A0C9', 'action': _addToList, 'image': assets.list, 'disabled': _disableAddToList},
   };
 
 
   return (
     <Container>
-      <Header searchBar>
-
-      </Header>
       <Content>
         <Item>
           <Input placeholder="Search"
-                 onChangeText={(text) => searchTerm = text}
+                 onChangeText={(text) => setSearchTerm(text)}
                  onSubmitEditing={() => searchIngredient()}
+                 value={searchTerm}
           />
           <Button icon transparent onPress={() => searchIngredient()}>
             <Icon name="ios-search" />
@@ -65,10 +77,15 @@ const SearchIngredients = ({dispatch}) => {
   )
 };
 SearchIngredients.navigationOptions = {
-  header: null
+  title: 'Search ingredients'
 };
-
-export default connect(null)(SearchIngredients);
+const mapStateToProps = state => {
+  return {
+    list: state.listState.ingredients,
+    fridge: state.fridgeState.ingredients
+  };
+};
+export default connect(mapStateToProps)(SearchIngredients);
 
 const styles = StyleSheet.create({
 });

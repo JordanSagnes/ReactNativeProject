@@ -38,7 +38,7 @@ const SettingsPage = ({navigation, settings, dispatch}) => {
 };
 
 SettingsPage.navigationOptions = {
-    title: "Settings"
+    title: "Settings",
 };
 
 const mapStateToProps = state => {

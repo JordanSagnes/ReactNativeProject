@@ -1,22 +1,11 @@
 ﻿# Cuisine
 =========================
 
-Moi :
-- Page d'accueil
-- Bottom nav
-- Recherche API
-- configuration
-
-
-Julien :
-- Listes + actions (add, delete, ...)
-- détails recette
-
-Après :
-- Ajouter une recette
-
-Amélioration 
-esha.com => Détails ingrédient kcal, vitamine ... 
+TODO
+- param button pour supprimer persist
+- recette
+- page d'erreur
+- page chargement (si on a le temps)
 
 
 https://fourniernico.github.io/CoursReactNative/#/

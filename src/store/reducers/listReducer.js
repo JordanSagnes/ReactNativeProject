@@ -10,7 +10,7 @@ function list(state = listState, action) {
     case types.ADD_INGREDIENT_TO_LIST:
       nextState = {
         ...state,
-        ingredients: [...state.ingredients, action.value]
+        ingredients: [...state.ingredients.filter(ingredient => ingredient.id !== action.value.id), action.value]
       };
       return nextState || state;
 

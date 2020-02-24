@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Keyboard} from 'react-native';
 import Ingredient from "../components/Ingredient";
 import { Container, Content, Footer, Item, Input, Icon, Button } from 'native-base';
 import { CheckBox } from 'react-native-elements';
@@ -23,6 +23,7 @@ const IngredientsList = ({ingredients, navigation, actions}) => {
     }
     ingredientsTemp = sortIngredients(ingredientsTemp, sortBy);
     setIngredientsFilter(ingredientsTemp);
+    Keyboard.dismiss();
   };
 
   let sortIngredients = (ingredients, filter) => {
@@ -72,7 +73,7 @@ const IngredientsList = ({ingredients, navigation, actions}) => {
         {
           (ingredientsFilter.length > 0) ? (
             ingredientsFilter.map(ingredient => {
-              return <Ingredient key={ingredient.id} ingredient={ingredient} actions={actions}/>
+              return <Ingredient key={ingredient.id} ingredient={ingredient} actions={actions} />
             })
           ) : (
             <NoIngredient/>
@@ -81,7 +82,7 @@ const IngredientsList = ({ingredients, navigation, actions}) => {
         }
       </Content>
       <Footer style={styles.footer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SearchIngredients')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SearchIngredients', {'searchTerm': searchTerm.current})}>
           <Icon name="ios-add" style={styles.buttonIcon}/>
           <Text style={styles.buttonText}>add new ingredients</Text>
         </TouchableOpacity>

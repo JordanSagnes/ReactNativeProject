@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   buttonSmallIcon : {
     width: 20,
     resizeMode: 'contain',
-    tintColor: 'rgba(0,0,0,0.2)'
+    tintColor: 'rgba(126, 63, 18,0.5)'
   },
 
   buttonText : {
