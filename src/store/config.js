@@ -15,15 +15,19 @@ const persistConfig = {
 
 // créé un reducer en utilisant state.key
 const reducer = combineReducers({
-  "settingsState" : settingsReducer,
   "fridgeState" : fridgeReducer,
-  "listState" : listReducer
+  "listState" : listReducer,
+  "settingsState" : settingsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = createStore(persistedReducer);
 export let persistor = persistStore(store);
+
+export const purgePersistor = () => {
+  store.dispatch({type: 'RESET'});
+};
 
 // décommenter pour vider le persist
 // persistor.purge();

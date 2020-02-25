@@ -54,7 +54,6 @@ export default Homepage;
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    justifyContent: "center",
     paddingHorizontal: 50
   },
 
@@ -103,6 +102,6 @@ const styles = StyleSheet.create({
   logo: {
     width: '100%',
     resizeMode: 'contain',
-    marginBottom: 100,
+    marginBottom: 50,
   }
 });

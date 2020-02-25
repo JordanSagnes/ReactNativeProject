@@ -21,6 +21,12 @@ function list(state = listState, action) {
       };
       return nextState || state;
 
+    case types.RESET:
+      nextState = {
+        ingredients: []
+      };
+      return nextState || state;
+
     default:
       return state
   }

@@ -1,16 +1,27 @@
-import React, { useState } from "react";
-import {Text, StyleSheet, View, Switch} from "react-native";
+import React from "react";
+import {Text, StyleSheet, View, Switch, Alert} from "react-native";
+import {Button} from 'native-base';
 import { colors } from "../definitions/colors";
 import { connect } from "react-redux";
+import { purgePersistor } from "../store/config";
 import { modifySettingsAddIngredientToShoppingList, modifySettingsRemoveIngredientToShoppingList } from "../store/actions/settings"
 
 const SettingsPage = ({navigation, settings, dispatch}) => {
-    _switchAddIngredient = () => {
+    let _switchAddIngredient = () => {
         dispatch(modifySettingsAddIngredientToShoppingList(!settings.addIngredientToShoppingList));
     };
 
-    _switchRemoveShoppingList = () => {
+    let _switchRemoveShoppingList = () => {
         dispatch(modifySettingsRemoveIngredientToShoppingList(!settings.removeIngredientToShoppingList));
+    };
+
+    let _resetStore = () => {
+        Alert.alert('Confirmation', 'Are you sur to delete all ?',
+            [
+                {text: 'Cancel', style: 'cancel'},
+                {text: 'OK', onPress: () => purgePersistor()},
+            ]
+        )
     };
 
     return (
@@ -33,6 +44,9 @@ const SettingsPage = ({navigation, settings, dispatch}) => {
                 <Text>TODO</Text>
             </View>
 
+            <Button style={styles.button} onPress={() => _resetStore()}>
+                <Text style={styles.buttonText}>Clear all data</Text>
+            </Button>
         </View>
     );
 };
@@ -79,5 +93,17 @@ const styles = StyleSheet.create({
         flex:1,
         marginTop: 40,
         justifyContent: "flex-start",
+    },
+
+    button: {
+        flexDirection: 'row',
+        backgroundColor: colors.mainColor,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    buttonText: {
+        alignSelf: 'center',
+        color: 'white'
     }
 });
