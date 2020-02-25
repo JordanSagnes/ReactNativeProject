@@ -12,7 +12,7 @@ import NoIngredient from "../components/NoIngredient";
 
 const SearchIngredients = ({dispatch, list, fridge, navigation}) => {
   const [ingredients, setIngredients] = useState( [] );
-  const [searchTerm, setSearchTerm] = useState(navigation.getParam('searchTerm'));
+  const [searchTerm, setSearchTerm] = useState(navigation.getParam('searchTerm') || '');
 
   useEffect(() => {
     searchIngredient();
