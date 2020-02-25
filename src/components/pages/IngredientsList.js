@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Keyboard} from 'react-native';
-import Ingredient from "../components/Ingredient";
+import Ingredient from "../shared/Ingredient";
 import { Container, Content, Footer, Item, Input, Icon, Button } from 'native-base';
 import { CheckBox } from 'react-native-elements';
-import {colors} from "../definitions/colors";
-import NoIngredient from "../components/NoIngredient";
+import {colors} from "../../definitions/colors";
+import NoIngredient from "../shared/NoIngredient";
 
 
 const IngredientsList = ({ingredients, navigation, actions}) => {

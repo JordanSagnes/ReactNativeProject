@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {connect} from "react-redux";
-import {assets} from "../definitions/assets";
-import {types as listTypes} from "../store/actions/list";
-import {types as fridgeTypes} from "../store/actions/fridge";
+import {assets} from "../../definitions/assets";
+import {types as listTypes} from "../../store/actions/list";
+import {types as fridgeTypes} from "../../store/actions/fridge";
 import IngredientsList from "./IngredientsList";
 
 

@@ -4,16 +4,17 @@ import {createBottomTabNavigator} from "react-navigation-tabs";
 import {Image, StyleSheet} from "react-native";
 import React from "react";
 
-import Homepage from "../pages/Homepage";
-import SettingsPage from "../pages/SettingsPage";
+import Homepage from "../components/pages/Homepage";
+import SettingsPage from "../components/pages/SettingsPage";
 
 import {colors} from "../definitions/colors";
 import {assets} from "../definitions/assets";
-import RecipeDetails from "../components/RecipeDetails";
-import Fridge from "../pages/Fridge";
-import List from "../pages/List";
-import SearchIngredients from "../pages/SearchIngredients";
-import IngredientsList from "../pages/IngredientsList";
+import RecipeDetails from "../components/shared/RecipeDetails";
+import Fridge from "../components/pages/Fridge";
+import List from "../components/pages/List";
+import SearchIngredients from "../components/pages/SearchIngredients";
+import IngredientsList from "../components/pages/IngredientsList";
+import SearchRecipes from "../components/pages/SearchRecipes";
 
 const defaultNavigationOptions = {
   headerStyle: {
@@ -54,10 +55,10 @@ const SettingsNavigation = createStackNavigator(
 
 const SearchNavigation = createStackNavigator(
   {
-    SearchIngredients: SearchIngredients,
+    SearchRecipes: SearchRecipes,
   },
   {
-    initialRouteName: "SearchIngredients",
+    initialRouteName: "SearchRecipes",
     headerLayoutPreset: 'center',
     defaultNavigationOptions: defaultNavigationOptions
   }
@@ -82,7 +83,7 @@ const TabNavigation = createBottomTabNavigator(
     Search: {
       screen: SearchNavigation,
       navigationOptions: {
-        title: "Search",
+        title: "Recipes",
         tabBarIcon: ({focused}) => {
           return (
             <Image

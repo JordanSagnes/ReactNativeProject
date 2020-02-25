@@ -1,10 +1,10 @@
 import React from "react";
 import {Text, StyleSheet, View, Switch, Alert} from "react-native";
 import {Button} from 'native-base';
-import { colors } from "../definitions/colors";
+import { colors } from "../../definitions/colors";
 import { connect } from "react-redux";
-import { purgePersistor } from "../store/config";
-import { modifySettingsAddIngredientToShoppingList, modifySettingsRemoveIngredientToShoppingList } from "../store/actions/settings"
+import { purgePersistor } from "../../store/config";
+import { modifySettingsAddIngredientToShoppingList, modifySettingsRemoveIngredientToShoppingList } from "../../store/actions/settings"
 
 const SettingsPage = ({navigation, settings, dispatch}) => {
     let _switchAddIngredient = () => {
@@ -16,6 +16,7 @@ const SettingsPage = ({navigation, settings, dispatch}) => {
     };
 
     let _resetStore = () => {
+        console.log((new Date()).toUTCString() );
         Alert.alert('Confirmation', 'Are you sur to delete all ?',
             [
                 {text: 'Cancel', style: 'cancel'},
@@ -40,8 +41,8 @@ const SettingsPage = ({navigation, settings, dispatch}) => {
 
             <View style={styles.apiSection}>
                 <Text style={styles.title}>API</Text>
-                <Text>TODO</Text>
-                <Text>TODO</Text>
+                <Text>Api credits remaining: {settings.apiQuota.creditsRemaining || 'not specified'}</Text>
+                <Text>Last update: {settings.apiQuota.lastUpdate}</Text>
             </View>
 
             <Button style={styles.button} onPress={() => _resetStore()}>
@@ -90,8 +91,8 @@ const styles = StyleSheet.create({
     },
 
     apiSection : {
-        flex:1,
         marginTop: 40,
+        flex:1,
         justifyContent: "flex-start",
     },
 

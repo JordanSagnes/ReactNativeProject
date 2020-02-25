@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Keyboard} from 'react-native';
 import { Container, Header, Content, Button, Item, Input, Icon } from 'native-base';
 import {FlatList} from "react-native"
-import {getResultsSearchIngredients} from "../api/spoonacular";
-import Ingredient from "../components/Ingredient";
-import {assets} from "../definitions/assets";
-import {types as fridgeType} from "../store/actions/fridge";
-import {types as listType} from "../store/actions/list";
+import {getResultsSearchIngredients} from "../../api/spoonacular";
+import Ingredient from "../shared/Ingredient";
+import {assets} from "../../definitions/assets";
+import {types as fridgeType} from "../../store/actions/fridge";
+import {types as listType} from "../../store/actions/list";
 import {connect} from "react-redux";
-import NoIngredient from "../components/NoIngredient";
+import NoIngredient from "../shared/NoIngredient";
 
 const SearchIngredients = ({dispatch, list, fridge, navigation}) => {
   const [ingredients, setIngredients] = useState( [] );

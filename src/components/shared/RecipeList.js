@@ -1,7 +1,7 @@
 import React from 'react'
-import {fakeRecipe} from '../helpers/fakeRecipe'
+import {fakeRecipe} from '../../helpers/fakeRecipe'
 import {FlatList, View, Text, Image, StyleSheet} from 'react-native'
-import {assets} from '../definitions/assets'
+import {assets} from '../../definitions/assets'
 
 const RecipeList = () => {
     return (

@@ -1,6 +1,6 @@
 import React from "react";
 import {Text, StyleSheet, View, ImageBackground, Image, TouchableOpacity} from "react-native";
-import {assets} from "../definitions/assets";
+import {assets} from "../../definitions/assets";
 
 const Homepage = ({navigation}) => {
   return (
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: 'rgba(255,255,255,0.8)',
     alignItems: "center",
     borderRadius: 4,
   },
@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
   logo: {
     width: '100%',
     resizeMode: 'contain',
-    marginBottom: 50,
+    marginVertical: 50,
   }
 });
