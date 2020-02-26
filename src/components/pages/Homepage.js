@@ -30,7 +30,7 @@ const Homepage = ({navigation}) => {
         </TouchableOpacity>
 
         {/*MY RECIPES*/}
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('RecipeDetails')}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Recipes')}>
           <View style={styles.buttonView}>
             <Image source={assets.food} style={styles.buttonIcon}/>
             <Text style={styles.buttonText}>My recipes</Text>

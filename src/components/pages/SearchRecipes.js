@@ -111,6 +111,5 @@ const styles = StyleSheet.create({
 
   recipes: {
     flex:1,
-    backgroundColor: 'yellow'
   }
 });

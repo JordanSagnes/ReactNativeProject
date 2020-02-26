@@ -15,6 +15,7 @@ import List from "../components/pages/List";
 import SearchIngredients from "../components/pages/SearchIngredients";
 import IngredientsList from "../components/pages/IngredientsList";
 import SearchRecipes from "../components/pages/SearchRecipes";
+import Recipes from "../components/pages/Recipes";
 
 const defaultNavigationOptions = {
   headerStyle: {
@@ -33,7 +34,8 @@ const HomeNavigation = createStackNavigator(
     Fridge: Fridge,
     List: List,
     SearchIngredients: SearchIngredients,
-    IngredientsList: IngredientsList
+    IngredientsList: IngredientsList,
+    Recipes: Recipes
   },
   {
     initialRouteName: "Home",

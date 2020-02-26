@@ -5,19 +5,19 @@ import { AsyncStorage } from 'react-native'
 import settingsReducer from "./reducers/settingsReducer";
 import fridgeReducer from "./reducers/fridgeReducer";
 import listReducer from "./reducers/listReducer";
+import recipeReducer from "./reducers/recipeReducer";
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
 };
 
-// TODO UNCOMMENT AND SEARCH HOW TO MERGE MULTIPLE REDUCERS
-
 // créé un reducer en utilisant state.key
 const reducer = combineReducers({
   "fridgeState" : fridgeReducer,
   "listState" : listReducer,
-  "settingsState" : settingsReducer
+  "recipeState" : recipeReducer,
+  "settingsState" : settingsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

@@ -5,6 +5,7 @@ export const assets = {
     hamburger: require("../assets/icons/hamburger.png"),
     trash: require("../assets/icons/trash.png"),
     list: require("../assets/icons/list.png"),
+    star: require("../assets/icons/star.png"),
     chevronRight: require("../assets/icons/chevron-right.png"),
     addToListIcon: require("../assets/icons/addToListIcon.png"),
     deleteIcon: require("../assets/icons/deleteIcon.png"),
