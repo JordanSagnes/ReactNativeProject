@@ -1,4 +1,4 @@
-import {action} from "./action";
+import {action} from "../actions/action";
 
 export const types = {
     "MODIFY_ADD_INGREDIENT_TO_SHOPPING_LIST" : "MODIFY_ADD_INGREDIENT_TO_SHOPPING_LIST",

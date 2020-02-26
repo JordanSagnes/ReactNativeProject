@@ -76,7 +76,7 @@ const IngredientsList = ({ingredients, navigation, actions}) => {
               return <Ingredient key={ingredient.id} ingredient={ingredient} actions={actions} />
             })
           ) : (
-            <NoIngredient/>
+            <NoIngredient text="No ingredient"/>
           )
 
         }

@@ -1,4 +1,4 @@
-import {types} from "../actions/settings";
+import {types} from "../models/settings";
 
 const settingsState = {
   addIngredientToShoppingList: false,

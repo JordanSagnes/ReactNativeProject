@@ -3,13 +3,12 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
 import AutoHeightImage from 'react-native-auto-height-image';
 import {assets} from "../../definitions/assets";
 import {connect} from "react-redux";
-import {types} from "../../store/actions/recipe";
+import {types} from "../../store/models/recipe";
 
 const Recipe = ({recipe, recipeStore, dispatch}) => {
 
   let toggleFav = () => {
     if(isFavRecipe()) {
-      console.log("gg");
       dispatch({type: types.REMOVE_RECIPE_TO_FAV, value: recipe.id})
     } else {
       dispatch({type: types.ADD_RECIPE_TO_FAV, value: recipe})
@@ -21,10 +20,10 @@ const Recipe = ({recipe, recipeStore, dispatch}) => {
   };
 
   return (
-    <View style={styles.mainView}>
+    <TouchableOpacity style={styles.mainView}>
       <AutoHeightImage source={{uri: `https://spoonacular.com/recipeImages/${recipe.id}-312x150.jpg`}} width={300} style={styles.image}/>
       <View style={styles.information}>
-        <Text style={styles.name}>{recipe.name}</Text>
+        <Text style={styles.name}>{recipe.title}</Text>
         <TouchableOpacity style={styles.icon} onPress={() => toggleFav()}>
           {
             isFavRecipe()
@@ -33,7 +32,7 @@ const Recipe = ({recipe, recipeStore, dispatch}) => {
           }
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 };
 

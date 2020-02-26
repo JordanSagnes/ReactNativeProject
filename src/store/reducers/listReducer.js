@@ -1,4 +1,4 @@
-import { types } from "../actions/list.js";
+import { types } from "../models/list.js";
 
 const listState = {
   ingredients : []

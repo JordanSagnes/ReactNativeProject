@@ -1,4 +1,4 @@
-import { types } from "../actions/recipe.js";
+import { types } from "../models/recipe.js";
 
 const recipeState = {
     recipes : []

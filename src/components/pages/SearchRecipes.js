@@ -1,80 +1,146 @@
-import React, {useState, useRef} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {Button, Container, Content, Icon, Input, Item, Picker, Form} from 'native-base';
+import React, {useState, useEffect, useRef} from 'react';
+import {FlatList, StyleSheet, View, Text, Keyboard} from 'react-native';
+import {Button, Icon, Input, Item, Picker} from 'native-base';
 import {getResultsSearchRecipes} from "../../api/spoonacular";
-import Ingredient from "../shared/Ingredient";
+import {cuisines} from "../../store/models/cuisine";
+import {diets} from "../../store/models/diet";
 import Recipe from "../shared/Recipe";
+import NoIngredient from "../shared/NoIngredient";
+import Loading from "../shared/Loading";
+import Error from "../shared/Error";
+import {colors} from "../../definitions/colors";
 
 
 const SearchRecipes = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchDiet, setSearchDiet] = useState('null');
+  const [searchCuisine, setSearchCuisine] = useState('null');
+  const [isRefreshing, setRefreshingState] = useState( false );
+  const [isError, setErrorState] = useState( false );
   const [recipes, setRecipes] = useState([]);
-  let enablePicker = useRef(false);
+  let numberOfRecipes = useRef(0);
+  let totalResults = useRef(1);
+  let reloading = useRef(false);
+
+  useEffect(() => {
+    if(recipes.length === 0 && reloading.current) {
+      reloading.current = false;
+      searchRecipes();
+    }
+  }, [recipes]);
+  const enabledPicker = () => searchTerm.length > 0;
 
   const searchRecipes = async () => {
-    try {
-      setRecipes(await getResultsSearchRecipes(searchTerm));
-    } catch(error) {
-      console.log(error); //todo view
+    Keyboard.dismiss();
+    setRefreshingState(true);
+    let term = searchTerm.length > 0 ? searchTerm : null;
+    let diet = searchDiet !== 'null' ? searchDiet : null;
+    let cuisine = searchCuisine !== 'null' ? searchCuisine : null;
+    let newRecipes = [];
+    setErrorState(false);
+
+    if((cuisine !== null || diet !== null || term !== null) && totalResults.current > 0) {
+      try {
+        let response = await getResultsSearchRecipes(term, cuisine, diet, numberOfRecipes.current);
+        totalResults.current = response.totalResults;
+        numberOfRecipes.current += response.number;
+        console.log(totalResults.current + '  --  '  + numberOfRecipes.current);
+        newRecipes = response.results;
+      } catch (error) {
+        setErrorState(true);
+      } finally {
+        setRefreshingState(false);
+      }
     }
+
+    setRecipes([...recipes, ...newRecipes]);
+    setRefreshingState(false);
+  };
+
+  const refresh = () => {
+    numberOfRecipes.current = 0;
+    totalResults.current = 1;
+    reloading.current = true;
+    setRecipes([]); //refresh thanks useEffect
   };
 
   return (
     <View style={styles.mainView}>
-
-      <Form>
-        <Item>
-          <Input placeholder="Search Recipes"
-                 onChangeText={(text) => setSearchTerm(text)}
-                 onSubmitEditing={() => searchRecipes()}
-                 value={searchTerm}
-          />
-          <Button icon transparent>
-            <Icon name="ios-search" onPress={() => searchRecipes()}/>
-          </Button>
-        </Item>
-
-        <View style={styles.pickers}>
-          <View style={[styles.picker, {marginRight:30}]}>
-            <Picker
-              note
-              mode="dropdown"
-              placeholder="Diet ?"
-              placeholderStyle={{ color: "#bfc6ea" }}
-              style={{flex:1}}
-              enabled={enablePicker.current}
-              // selectedValue={}
-              // onValueChange={}
-            >
-              {/*<Picker.Item label="Wallet" value="key0" />*/}
-            </Picker>
-          </View>
-
-
-          <View style={[styles.picker, {marginLeft:30}]}>
-            <Picker
-              note
-              mode="dropdown"
-              placeholder="Cuisine ?"
-              enabled={enablePicker.current}
-              // selectedValue={}
-              // onValueChange={}
-            >
-              {/*<Picker.Item label="Wallet" value="key0" />*/}
-            </Picker>
-          </View>
-        </View>
-      </Form>
-
-      <View style={styles.recipes}>
-        <FlatList
-          data={ recipes }
-          keyExtractor={ (item) => item.id.toString() }
-          renderItem={ ({item}) => <Recipe key={item.id} recipe={item}/>}
-          style={styles.content}
+      <Item>
+        <Input placeholder="Search Recipes"
+               onChangeText={(text) => setSearchTerm(text)}
+               onSubmitEditing={() => refresh()}
+               value={searchTerm}
         />
-      </View>
+        <Button icon transparent>
+          <Icon name="ios-search" onPress={() => refresh()}/>
+        </Button>
+      </Item>
 
+      <View style={styles.pickers}>
+        <View style={[styles.picker, {marginRight: 30}, (enabledPicker()) ? styles.enabledPicker : styles.disabledPicker]}>
+          <Picker
+            note
+            mode="dropdown"
+            enabled={enabledPicker()}
+            selectedValue={searchDiet}
+            onValueChange={(value) => setSearchDiet(value)}
+          >
+            <Picker.Item label="Select diet" value="null" />
+            {
+              diets.map(diet => <Picker.Item key={diet} label={diet} value={diet} />)
+            }
+          </Picker>
+        </View>
+
+
+        <View style={[styles.picker, {marginLeft: 30}, (enabledPicker()) ? styles.enabledPicker : styles.disabledPicker]}>
+          <Picker
+            note
+            mode="dropdown"
+            enabled={enabledPicker()}
+            selectedValue={searchCuisine}
+            onValueChange={(value) => setSearchCuisine(value)}
+          >
+            <Picker.Item label="Select cuisine" value="null"/>
+            {
+              cuisines.map(cuisine => <Picker.Item key={cuisine} label={cuisine} value={cuisine} />)
+            }
+          </Picker>
+        </View>
+      </View>
+      <Button style={styles.button}>
+        <Text style={styles.buttonText}>What can I cook today ?</Text>
+      </Button>
+
+      {
+        isError && <Error />
+      }
+
+      {
+        isRefreshing && numberOfRecipes.current === 0
+        ? <Loading/>
+        : (
+            <View style={styles.recipes}>
+              {
+                recipes.length === 0
+                  ? <NoIngredient text="No recipe, start research"/>
+                  : (
+                    <FlatList
+                      data={recipes}
+                      keyExtractor={(item) => item.id.toString()}
+                      renderItem={({item}) => <Recipe key={item.id} recipe={item}/>}
+                      style={styles.content}
+                      onRefresh={ () => refresh() }
+                      refreshing={ isRefreshing }
+                      onEndReached={ () => searchRecipes() }
+                      onEndReachedThreshold={ 0.5 }
+                    />
+                  )
+              }
+            </View>
+        )
+      }
     </View>
   )
 };
@@ -91,7 +157,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    flex:1,
+    flex: 1,
   },
 
   pickers: {
@@ -102,14 +168,34 @@ const styles = StyleSheet.create({
   },
 
   picker: {
-    flex:1,
+    flex: 1,
     borderRadius: 7,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: 'rgba(0,0,0,0.1)',
+  },
+
+  enabledPicker: {
+
+    borderColor: 'rgba(0,0,0,0.4)'
+  },
+
+  disabledPicker: {
+    borderColor: 'rgba(0,0,0,0.1)'
   },
 
   recipes: {
-    flex:1,
+    flex: 1,
+    justifyContent: 'flex-start'
+  },
+
+  button: {
+    marginTop: 20,
+    marginHorizontal: 20,
+    backgroundColor: colors.mainColor,
+    justifyContent: 'center'
+  },
+
+  buttonText: {
+    color: 'white'
   }
 });

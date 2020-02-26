@@ -2,16 +2,23 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {connect} from "react-redux";
 import Recipe from "../shared/Recipe";
+import NoIngredient from "../shared/NoIngredient";
 
 
 const Recipes = ({recipes}) => {
     return (
         <View style={styles.mainView}>
-            <FlatList
-                data={recipes}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({item}) => <Recipe key={item.id} recipe={item}/>}
-            />
+            {
+                recipes.length === 0
+                  ? <NoIngredient text="No recipe saved" />
+                  : (
+                    <FlatList
+                        data={recipes}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({item}) => <Recipe key={item.id} recipe={item}/>}
+                    />
+                  )
+            }
         </View>
     )
 };

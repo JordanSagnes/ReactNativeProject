@@ -1,4 +1,4 @@
-import { types } from "../actions/fridge.js";
+import { types } from "../models/fridge.js";
 
 const fridgeState = {
   ingredients : []

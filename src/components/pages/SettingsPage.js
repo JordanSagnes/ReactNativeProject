@@ -4,7 +4,7 @@ import {Button} from 'native-base';
 import { colors } from "../../definitions/colors";
 import { connect } from "react-redux";
 import { purgePersistor } from "../../store/config";
-import { modifySettingsAddIngredientToShoppingList, modifySettingsRemoveIngredientToShoppingList } from "../../store/actions/settings"
+import { modifySettingsAddIngredientToShoppingList, modifySettingsRemoveIngredientToShoppingList } from "../../store/models/settings"
 
 const SettingsPage = ({navigation, settings, dispatch}) => {
     let _switchAddIngredient = () => {
@@ -16,7 +16,6 @@ const SettingsPage = ({navigation, settings, dispatch}) => {
     };
 
     let _resetStore = () => {
-        console.log((new Date()).toUTCString() );
         Alert.alert('Confirmation', 'Are you sur to delete all ?',
             [
                 {text: 'Cancel', style: 'cancel'},

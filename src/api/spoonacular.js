@@ -1,5 +1,5 @@
 import {store} from "../store/config";
-import {types} from "../store/actions/settings";
+import {types} from "../store/models/settings";
 
 const API_KEY = "4c5f1fc8d7b140b783982a00a2d411a4";
 const API_URL = 'https://api.spoonacular.com/';
@@ -7,6 +7,7 @@ const API_URL_SUFFIX = '&apiKey=' + API_KEY;
 const MAX_API_POINT = 150;
 
 async function doGet(url) {
+  console.log(url);
   try {
     const response = await fetch(url);
 
@@ -29,21 +30,19 @@ async function doGet(url) {
 
 }
 
-function generateSearchRecipesUrl(searchTerm, cuisine, diet) {
-  let url = `${API_URL}food/ingredients/autocomplete?`;
-  if (searchTerm !== undefined)
-    url += `query=${searchTerm}&`;
-  if (cuisine !== undefined)
+function generateSearchRecipesUrl(searchTerm, cuisine, diet, offset) {
+  let url = `${API_URL}recipes/search?query=${searchTerm}&`;
+  if (cuisine !== null)
     url += `cuisine=${cuisine}&`;
-  if (diet !== undefined)
+  if (diet !== null)
     url += `diet=${diet}&`;
 
-  return url + `metaInformation=true${API_URL_SUFFIX}`;
+  return url + `metaInformation=true${API_URL_SUFFIX}&offset=${offset}`;
 }
 
 export async function getResultsSearchIngredients(searchTerm) {
   try {
-    const url = `${API_URL}food/ingredients/autocomplete?query=${searchTerm}&metaInformation=true${API_URL_SUFFIX}`;
+    const url = `${API_URL}food/ingredients/autocomplete?query=${searchTerm}&number=20&metaInformation=true${API_URL_SUFFIX}`;
     let response = await doGet(url);
     return response;
   } catch (error) {
@@ -52,9 +51,9 @@ export async function getResultsSearchIngredients(searchTerm) {
   }
 }
 
-export async function getResultsSearchRecipes(searchTerm, cuisine, diet) {
+export async function getResultsSearchRecipes(searchTerm, cuisine, diet, offset) {
   try {
-    const url = generateSearchRecipesUrl(searchTerm, cuisine, diet);
+    const url = generateSearchRecipesUrl(searchTerm, cuisine, diet, offset);
     let response = await doGet(url);
     return response;
   } catch (error) {
