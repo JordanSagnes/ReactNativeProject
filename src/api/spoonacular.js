@@ -10,7 +10,7 @@ async function doGet(url) {
   console.log(url);
   try {
     const response = await fetch(url);
-
+    console.log(store.getState().fridgeState.ingredients);
     //update apiQuota
     store.dispatch({
       type: types.SET_NEW_API_QUOTA,
@@ -60,6 +60,19 @@ export async function getResultsSearchRecipes(searchTerm, cuisine, diet, offset)
     console.log('Error with function getResultsSearchRecipes ' + error.message);
     throw error;
   }
+}
+
+export async function getResultsFridgeRecipes() {
+  try {
+    let ingredients = store.getState().fridgeState.ingredients.map((ingredient) => ingredient.name);
+    const url = `${API_URL}recipes/findByIngredients?ingredients=${ingredients.join(',')}${API_URL_SUFFIX}`;
+    let response = await doGet(url);
+    return response;
+  } catch(error) {
+    console.log('Error with function getFridgeRecipes ' + error.message);
+    throw error;
+  }
+
 }
 
 

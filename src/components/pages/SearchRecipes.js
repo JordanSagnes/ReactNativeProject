@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {FlatList, StyleSheet, View, Text, Keyboard} from 'react-native';
 import {Button, Icon, Input, Item, Picker} from 'native-base';
-import {getResultsSearchRecipes} from "../../api/spoonacular";
+import {getResultsFridgeRecipes, getResultsSearchRecipes} from "../../api/spoonacular";
 import {cuisines} from "../../store/models/cuisine";
 import {diets} from "../../store/models/diet";
 import Recipe from "../shared/Recipe";
@@ -57,6 +57,22 @@ const SearchRecipes = () => {
     setRefreshingState(false);
   };
 
+  const getFridgeRecipes = async () => {
+    Keyboard.dismiss();
+    setRefreshingState(true);
+    setErrorState(false);
+    let response = [];
+    try {
+      response = await getResultsFridgeRecipes();
+    } catch(error) {
+      setErrorState(true);
+    } finally {
+      setRefreshingState(false);
+    }
+    setRecipes(response);
+    setRefreshingState(false);
+  };
+
   const refresh = () => {
     numberOfRecipes.current = 0;
     totalResults.current = 1;
@@ -109,7 +125,7 @@ const SearchRecipes = () => {
           </Picker>
         </View>
       </View>
-      <Button style={styles.button}>
+      <Button style={styles.button} onPress={() => getFridgeRecipes()}>
         <Text style={styles.buttonText}>What can I cook today ?</Text>
       </Button>
 
