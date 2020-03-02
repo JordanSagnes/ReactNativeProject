@@ -11,7 +11,7 @@ import Error from "../shared/Error";
 import {colors} from "../../definitions/colors";
 
 
-const SearchRecipes = () => {
+const SearchRecipes = ({navigation}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchDiet, setSearchDiet] = useState('null');
   const [searchCuisine, setSearchCuisine] = useState('null');
@@ -145,7 +145,7 @@ const SearchRecipes = () => {
                     <FlatList
                       data={recipes}
                       keyExtractor={(item) => item.id.toString()}
-                      renderItem={({item}) => <Recipe key={item.id} recipe={item}/>}
+                      renderItem={({item}) => <Recipe key={item.id} recipe={item}  navigation={navigation}/>}
                       style={styles.content}
                       onRefresh={ () => refresh() }
                       refreshing={ isRefreshing }

@@ -15,12 +15,15 @@ const Recipe = ({recipe, recipeStore, dispatch}) => {
     }
   };
 
+  let showDetail = () => {
+    navigation.navigate('RecipeDetails');
+  }
   let isFavRecipe = () => {
     return recipeStore.recipes.filter(recipeTemp => recipeTemp.id === recipe.id).length > 0;
   };
 
   return (
-    <TouchableOpacity style={styles.mainView}>
+    <TouchableOpacity style={styles.mainView} onPress={() => showDetail()}>
       <AutoHeightImage source={{uri: `https://spoonacular.com/recipeImages/${recipe.id}-312x150.jpg`}} width={300} style={styles.image}/>
       <View style={styles.information}>
         <Text style={styles.name}>{recipe.title}</Text>

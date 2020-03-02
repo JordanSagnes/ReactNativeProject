@@ -5,7 +5,7 @@ import Recipe from "../shared/Recipe";
 import NoIngredient from "../shared/NoIngredient";
 
 
-const Recipes = ({recipes}) => {
+const Recipes = ({recipes,navigation}) => {
     return (
         <View style={styles.mainView}>
             {
@@ -15,10 +15,10 @@ const Recipes = ({recipes}) => {
                     <FlatList
                         data={recipes}
                         keyExtractor={(item) => item.id.toString()}
-                        renderItem={({item}) => <Recipe key={item.id} recipe={item}/>}
+                        renderItem={({item}) => <Recipe key={item.id} recipe={item}  navigation={navigation}/>}
                     />
                   )
-            }
+            }   
         </View>
     )
 };

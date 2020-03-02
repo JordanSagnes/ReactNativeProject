@@ -3,7 +3,7 @@ import {View, Image, Text, StyleSheet} from 'react-native'
 import {assets} from "../../definitions/assets";
 import {fakeRecipeDetails} from "../../helpers/fakeRecipeDetails";
 
-const RecipeDetails = () => {
+const RecipeDetails = ({recipeDetail}) => {
     return (
         <View style={styles.mainView}>
             <View style={styles.recipeIconContainer}>
@@ -11,15 +11,16 @@ const RecipeDetails = () => {
             </View>
             <View style={styles.nameAndActionContainer}>
                 <Text>
-                    NOM DU RESTAURANT
+                {recipeDetail.title}
                 </Text>
                 <Image source={assets.deleteIcon}/>
             </View>
             <Text>
-                Cuisine
+            {recipeDetail.cuisines} cuisine(s)
+            {recipeDetail.diets} diet(s)
             </Text>
             <Text>
-                Ready in 50 min, up to 3 peoples
+    Ready in{recipeDetail.readyInMinutes }min, up to {recipeDetail.servings} peoples
             </Text>
             <Text>
                 Ingredients
@@ -45,12 +46,15 @@ const RecipeDetails = () => {
             <Text>
                 Instructions
             </Text>
+            {recipeDetail.instructions}
+            {recipeDetail.analyzedInstructions}
             <Text>
                 Un peu de vin monsieur ?
             </Text>
             <Text>
-                Malbec BLABLABLA
-                DESCRIPTION
+            
+            {recipeDetail.pairedWines}
+            {recipeDetail.pairingText}
             </Text>
         </View>
     )
