@@ -46,7 +46,7 @@ const RecipeDetails = ({ navigation }) => {
                          <AutoHeightImage style={styles.image} source={{uri: `https://spoonacular.com/recipeImages/${recipe.id}-312x150.jpg`}} width={300} style={styles.image}/>
 
                         <Text style={[styles.bold, styles.detailTitle]}>{recipe.title} </Text>
-
+                        <Text>TODO Favoris</Text>
                         {recipe.cuisines && recipe.cuisines.length !== 0 && <Text>{recipe.cuisines.map(cuisine =>
                             <Text>{recipe.cuisines[0] != cuisine && ', '} {cuisine} </Text>)} cuisine(s) </Text>}
                         {(!recipe.cuisines || recipe.cuisines.length === 0) && <Text>No cuisine(s)</Text>}
@@ -63,9 +63,18 @@ const RecipeDetails = ({ navigation }) => {
                         <Text>Comment recup les ingredients qu'on a et ceux qu'on a pas ? </Text>
 
                         <Text style={[styles.bold, styles.midTitle]}>Instructions</Text>
-                        {recipe.analyzedInstructions && recipe.analyzedInstructions.steps && <Text>{recipe.analyzedInstructions.steps.map(step =>
-                            <p>{step.number}. {step.step}</p>)}  </Text>}
-                        {(!recipe.analyzedInstructions || !recipe.analyzedInstructions.steps) && <Text>No instructions.  </Text>}
+                        {recipe.analyzedInstructions && recipe.analyzedInstructions !== 0 &&recipe.analyzedInstructions[0].steps && 
+                        <View>{recipe.analyzedInstructions[0].steps.map(step =>
+                            <View key={step.number}>
+                                <Text>
+                                    <Text style={styles.yellow}>{step.number}.</Text>
+                                    <Text> {step.step}</Text>
+                                </Text> 
+                            
+                            </View> )}  
+                        </View>}
+
+                        {(!recipe.analyzedInstructions || !recipe.analyzedInstructions === 0 ||!recipe.analyzedInstructions[0].steps) && <Text>No instructions.  </Text>}
 
                         <Text style={[styles.italic, styles.bold, styles.midTitle]}>Un peu de vin Monsieur ?</Text>
                         {recipe.winePairing && recipe.winePairing.pairedWines && <Text>{recipe.winePairing.pairedWines.map(pairedWine =>
@@ -102,6 +111,9 @@ const styles = StyleSheet.create({
     },
     italic:{
         fontStyle: "italic"
+    },
+    yellow:{
+        color: '#F8AB1C'
     },
     recipeIconContainer: {
         flexDirection: 'row'
