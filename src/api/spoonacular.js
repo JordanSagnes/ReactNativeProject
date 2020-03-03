@@ -62,6 +62,17 @@ export async function getResultsSearchRecipes(searchTerm, cuisine, diet, offset)
   }
 }
 
+export async function getRecipeDetail(id) {
+  try {
+    const url = `${API_URL}recipes/${id}/information`;;
+    let response = await doGet(url);
+    return response;
+  } catch (error) {
+    console.log('Error with function getRecipeDetail ' + error.message);
+    throw error;
+  }
+}
+
 export async function getResultsFridgeRecipes() {
   try {
     let ingredients = store.getState().fridgeState.ingredients.map((ingredient) => ingredient.name);

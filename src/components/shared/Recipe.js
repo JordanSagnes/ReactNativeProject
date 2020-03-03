@@ -5,7 +5,7 @@ import {assets} from "../../definitions/assets";
 import {connect} from "react-redux";
 import {types} from "../../store/models/recipe";
 
-const Recipe = ({recipe, recipeStore, dispatch}) => {
+const Recipe = ({recipe, navigation, recipeStore, dispatch}) => {
 
   let toggleFav = () => {
     if(isFavRecipe()) {
@@ -15,15 +15,15 @@ const Recipe = ({recipe, recipeStore, dispatch}) => {
     }
   };
 
-  let showDetail = () => {
-    navigation.navigate('RecipeDetails');
+  let showDetail = (recipeId) => {
+    navigation.navigate('RecipeDetails', {recipeId});
   }
   let isFavRecipe = () => {
     return recipeStore.recipes.filter(recipeTemp => recipeTemp.id === recipe.id).length > 0;
   };
 
   return (
-    <TouchableOpacity style={styles.mainView} onPress={() => showDetail()}>
+    <TouchableOpacity style={styles.mainView} onPress={() => showDetail(recipe.id)}>
       <AutoHeightImage source={{uri: `https://spoonacular.com/recipeImages/${recipe.id}-312x150.jpg`}} width={300} style={styles.image}/>
       <View style={styles.information}>
         <Text style={styles.name}>{recipe.title}</Text>
