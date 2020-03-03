@@ -64,7 +64,7 @@ export async function getResultsSearchRecipes(searchTerm, cuisine, diet, offset)
 
 export async function getRecipeDetail(id) {
   try {
-    const url = `${API_URL}recipes/${id}/information?${API_URL_SUFFIX}`;;
+    const url = `${API_URL}recipes/${id}/information?${API_URL_SUFFIX}`;
     let response = await doGet(url);
     return response;
   } catch (error) {
