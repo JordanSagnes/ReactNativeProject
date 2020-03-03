@@ -10,15 +10,17 @@ async function doGet(url) {
   console.log(url);
   try {
     const response = await fetch(url);
-    console.log(store.getState().fridgeState.ingredients);
+
     //update apiQuota
-    store.dispatch({
-      type: types.SET_NEW_API_QUOTA,
-      value: {
-        creditsRemaining: (MAX_API_POINT - response.headers.map['x-api-quota-used']).toFixed(2),
-        lastUpdate: (new Date()).toUTCString()
-      }
-    });
+    if(response.headers.map['x-api-quota-used'] !== undefined) {
+      store.dispatch({
+        type: types.SET_NEW_API_QUOTA,
+        value: {
+          creditsRemaining: (MAX_API_POINT - response.headers.map['x-api-quota-used']).toFixed(2),
+          lastUpdate: (new Date()).toUTCString()
+        }
+      });
+    }
 
     if (response.ok) {
       return response.json();

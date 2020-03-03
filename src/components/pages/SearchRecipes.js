@@ -44,7 +44,6 @@ const SearchRecipes = ({navigation}) => {
         let response = await getResultsSearchRecipes(term, cuisine, diet, numberOfRecipes.current);
         totalResults.current = response.totalResults;
         numberOfRecipes.current += response.number;
-        console.log(totalResults.current + '  --  '  + numberOfRecipes.current);
         newRecipes = response.results;
       } catch (error) {
         setErrorState(true);

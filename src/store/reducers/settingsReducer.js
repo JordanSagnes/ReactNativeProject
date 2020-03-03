@@ -33,12 +33,6 @@ function settings(state = settingsState, action) {
       };
       return nextState || state;
 
-    case types.RESET:
-      nextState = {
-        ingredients: []
-      };
-      return nextState || state;
-
     default:
       return state
   }
