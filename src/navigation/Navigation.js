@@ -9,7 +9,7 @@ import SettingsPage from "../components/pages/SettingsPage";
 
 import {colors} from "../definitions/colors";
 import {assets} from "../definitions/assets";
-import RecipeDetails from "../components/shared/RecipeDetails";
+import RecipeDetails from "../components/pages/RecipeDetails";
 import Fridge from "../components/pages/Fridge";
 import List from "../components/pages/List";
 import SearchIngredients from "../components/pages/SearchIngredients";
@@ -58,6 +58,7 @@ const SettingsNavigation = createStackNavigator(
 const SearchNavigation = createStackNavigator(
   {
     SearchRecipes: SearchRecipes,
+    RecipeDetails: RecipeDetails
   },
   {
     initialRouteName: "SearchRecipes",

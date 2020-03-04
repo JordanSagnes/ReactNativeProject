@@ -1,9 +1,10 @@
 import {store} from "../store/config";
 import {types} from "../store/models/settings";
 
-const API_KEY = "df65dc8514fa4945b43b5414bad63f3d";
+// const API_KEY = "df65dc8514fa4945b43b5414bad63f3d";
+const API_KEY = "4c5f1fc8d7b140b783982a00a2d411a4";
 const API_URL = 'https://api.spoonacular.com/';
-const API_URL_SUFFIX = '&apiKey=' + API_KEY;
+const API_URL_SUFFIX = 'apiKey=' + API_KEY;
 const MAX_API_POINT = 150;
 
 async function doGet(url) {
@@ -39,12 +40,12 @@ function generateSearchRecipesUrl(searchTerm, cuisine, diet, offset) {
   if (diet !== null)
     url += `diet=${diet}&`;
 
-  return url + `metaInformation=true${API_URL_SUFFIX}&offset=${offset}`;
+  return url + `metaInformation=true&${API_URL_SUFFIX}&offset=${offset}`;
 }
 
 export async function getResultsSearchIngredients(searchTerm) {
   try {
-    const url = `${API_URL}food/ingredients/autocomplete?query=${searchTerm}&number=20&metaInformation=true${API_URL_SUFFIX}`;
+    const url = `${API_URL}food/ingredients/autocomplete?query=${searchTerm}&number=10&metaInformation=true&${API_URL_SUFFIX}`;
     let response = await doGet(url);
     return response;
   } catch (error) {
@@ -66,7 +67,7 @@ export async function getResultsSearchRecipes(searchTerm, cuisine, diet, offset)
 
 export async function getRecipeDetail(id) {
   try {
-    const url = `${API_URL}recipes/${id}/information?${API_URL_SUFFIX}`;
+    const url = `${API_URL}recipes/${id}/information?includeNutrition=false&${API_URL_SUFFIX}`;
     let response = await doGet(url);
     return response;
   } catch (error) {
@@ -75,10 +76,21 @@ export async function getRecipeDetail(id) {
   }
 }
 
+export async function getRecipeInstructions(id) {
+  try {
+    const url = `${API_URL}recipes/${id}/analyzedInstructions?${API_URL_SUFFIX}`;
+    let response = await doGet(url);
+    return response;
+  } catch (error) {
+    console.log('Error with function getRecipeInstructions ' + error.message);
+    throw error;
+  }
+}
+
 export async function getResultsFridgeRecipes() {
   try {
     let ingredients = store.getState().fridgeState.ingredients.map((ingredient) => ingredient.name);
-    const url = `${API_URL}recipes/findByIngredients?ingredients=${ingredients.join(',')}${API_URL_SUFFIX}`;
+    const url = `${API_URL}recipes/findByIngredients?ingredients=${ingredients.join(',')}&${API_URL_SUFFIX}`;
     let response = await doGet(url);
     return response;
   } catch(error) {
