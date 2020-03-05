@@ -24,10 +24,16 @@ const SearchRecipes = ({navigation}) => {
 
   useEffect(() => {
     if(recipes.length === 0 && reloading.current) {
+      console.log('refresh');
       reloading.current = false;
       searchRecipes();
     }
   }, [recipes]);
+
+  useEffect(() => {
+    refresh();
+  }, [searchDiet, searchCuisine]);
+
   const enabledPicker = () => searchTerm.length > 0;
 
   const searchRecipes = async () => {
@@ -72,7 +78,14 @@ const SearchRecipes = ({navigation}) => {
     setRefreshingState(false);
   };
 
+  const listRefresh = () => {
+    if(totalResults.current > 0) {
+      searchRecipes();
+    }
+  };
+
   const refresh = () => {
+    console.log('refresh function');
     numberOfRecipes.current = 0;
     totalResults.current = 1;
     reloading.current = true;
@@ -87,9 +100,11 @@ const SearchRecipes = ({navigation}) => {
                onSubmitEditing={() => refresh()}
                value={searchTerm}
         />
-        <Button icon transparent>
-          <Icon name="ios-search" onPress={() => refresh()}/>
-        </Button>
+        <View style={styles.buttonSearch}>
+          <Button icon transparent>
+            <Icon name="ios-search" onPress={() => refresh()}/>
+          </Button>
+        </View>
       </Item>
 
       <View style={styles.pickers}>
@@ -148,7 +163,7 @@ const SearchRecipes = ({navigation}) => {
                       style={styles.content}
                       onRefresh={ () => refresh() }
                       refreshing={ isRefreshing }
-                      onEndReached={ () => searchRecipes() }
+                      onEndReached={ () => listRefresh() }
                       onEndReachedThreshold={ 0.5 }
                     />
                   )
@@ -173,6 +188,13 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
+  },
+
+  buttonSearch: {
+    borderRadius: 7,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'rgba(0,0,0,0.1)'
   },
 
   pickers: {

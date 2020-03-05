@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ProjectNameTODO",
-    "slug": "Project",
+    "name": "MyFridge",
+    "slug": "Fridge",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
