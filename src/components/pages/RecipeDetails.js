@@ -126,7 +126,7 @@ const RecipeDetails = ({ navigation, fridge, recipeStore, dispatch }) => {
                                             return (
                                               <View key={ingredient.name} style={styles.ingredient}>
                                                   <Image style={styles.ingredientImage} source={{'uri' : `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}} />
-                                                  <Text>{ingredient.name}</Text>
+                                                  <Text style={styles.textWrap}>{ingredient.name}</Text>
                                               </View>
                                             );
                                         })
@@ -142,7 +142,7 @@ const RecipeDetails = ({ navigation, fridge, recipeStore, dispatch }) => {
                                             return (
                                               <View key={ingredient.name} style={styles.ingredient}>
                                                   <Image style={styles.ingredientImage} source={{'uri' : `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`}} />
-                                                  <Text>{ingredient.name}</Text>
+                                                  <Text style={styles.textWrap}>{ingredient.name}</Text>
                                               </View>
                                             );
                                         })
@@ -213,6 +213,10 @@ export default connect(mapStateToProps)(RecipeDetails);
 const styles = StyleSheet.create({
     mainView: {
         flex: 1
+    },
+
+    textWrap: {
+        flexWrap: 'wrap',
     },
 
     recipe: {
@@ -300,7 +304,7 @@ const styles = StyleSheet.create({
 
     // ingredient
     ingredientsGrid: {
-        flexDirection: 'row',
+        flexDirection: (Dimensions.get('window').width < 600) ? 'column' : 'row',
         justifyContent: 'space-between'
     },
 
@@ -311,7 +315,8 @@ const styles = StyleSheet.create({
     ingredientsSectionText: {
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 10
+        marginBottom: 10,
+        marginTop: (Dimensions.get('window').width < 600) ? 10 : 0
     },
 
     ingredient: {
@@ -323,7 +328,7 @@ const styles = StyleSheet.create({
     ingredientBorderLeft: {
         paddingLeft: 20,
         borderLeftColor: 'rgba(0,0,0,0.05)',
-        borderLeftWidth: 1
+        borderLeftWidth: (Dimensions.get('window').width < 600) ? 0 : 1
     },
 
     ingredientImage: {
