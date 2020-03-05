@@ -26,7 +26,7 @@ const SettingsPage = ({navigation, settings, dispatch}) => {
 
     return (
         <View style={styles.mainContainer}>
-            <Text style={styles.title}>Configutation</Text>
+            <Text style={styles.title}>Configuration</Text>
             <View style={styles.formline}>
                 <Switch onChange={_switchAddIngredient} value={settings.addIngredientToShoppingList} style={styles.switch}></Switch>
                 <Text style={styles.text}>Add ingredients removed from the fridge to the shopping list</Text>
