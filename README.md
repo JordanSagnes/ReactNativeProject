@@ -1,11 +1,9 @@
-﻿# Cuisine
+﻿# MyFridge - Projet universitaire M2GI 2019-2020    
 =========================
+npm install  
+expo start  
 
-npm install
-expo start
 
-TODO
-- recette details
-
-https://fourniernico.github.io/CoursReactNative/#/
-https://github.com/FournierNico/CoursReactNative
+Yoan Fath  
+Julien Pignolet  
+Jordan Sagnes  
